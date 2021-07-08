@@ -1,3 +1,48 @@
-<p>login-page works!</p>
+<form class="card" [formGroup]="form" (ngSubmit)="submit()">
+  <h2>Войти в панель администратора</h2>
 
-<router-outlet></router-outlet>
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.controls['email'].touched && form.controls['email'].invalid}"
+  >
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <div
+      class="validation"
+      *ngIf="form.controls['email'].touched && form.controls['email'].invalid"
+    >
+      <small *ngIf="form.controls['email'].hasError('required')">
+        Введите email!
+      </small>
+      <small *ngIf="form.controls['email'].hasError('email')">
+        Введите корректный email
+      </small>
+    </div>
+  </div>
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.controls['password'].touched && form.controls['password'].invalid}"
+  >
+    <label for="password">Пароль:</label>
+    <input id="password" type="password" formControlName="password">
+    <div
+      class="validation"
+      *ngIf="form.controls['password'].touched && form.controls['password'].invalid"
+    >
+      <small *ngIf="form.controls['password'].hasError('required')">
+        Введите пароль!
+      </small>
+      <small *ngIf="form.controls['password'].hasError('minlength')">
+        Длина пароля дожны быть не менее {{form.get('password')!.errors!.minlength.requiredLength}}.
+        Сейчас длина равна {{form.get('password')!.errors!.minlength.actualLength}}
+      </small>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="form.invalid"
+  >Войти
+  </button>
+</form>
