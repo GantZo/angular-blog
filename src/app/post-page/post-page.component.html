@@ -1,19 +1,21 @@
-<div class="post">
-  <div class="header">
-    <h1>Post title</h1>
+<div *ngIf="post$ | async as post; else loading">
+  <div class="post">
+    <div class="header">
+      <h1>{{post.title}}</h1>
 
-    <button routerLink="/" class="btn btn-link">На главную</button>
-  </div>
-  <div class="info">
-    <strong>Тут автор</strong>
-    <small>12.09.2021</small>
-  </div>
+      <button routerLink="/" class="btn btn-link">На главную</button>
+    </div>
+    <div class="info">
+      <strong>{{post.author}}</strong>
+      <small>{{post.date | date:'medium':'':'ru'}}</small>
+    </div>
 
-  <div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consectetur dolorem doloribus dolorum ea, fugit laborum mollitia natus quam quis quos sapiente similique voluptate. Aperiam assumenda autem dignissimos est explicabo illo in ipsa labore natus nesciunt obcaecati quisquam tenetur, vero. A adipisci consequatur laborum nam voluptate. Culpa deserunt dignissimos voluptas.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consectetur dolorem doloribus dolorum ea, fugit laborum mollitia natus quam quis quos sapiente similique voluptate. Aperiam assumenda autem dignissimos est explicabo illo in ipsa labore natus nesciunt obcaecati quisquam tenetur, vero. A adipisci consequatur laborum nam voluptate. Culpa deserunt dignissimos voluptas.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consectetur dolorem doloribus dolorum ea, fugit laborum mollitia natus quam quis quos sapiente similique voluptate. Aperiam assumenda autem dignissimos est explicabo illo in ipsa labore natus nesciunt obcaecati quisquam tenetur, vero. A adipisci consequatur laborum nam voluptate. Culpa deserunt dignissimos voluptas.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consectetur dolorem doloribus dolorum ea, fugit laborum mollitia natus quam quis quos sapiente similique voluptate. Aperiam assumenda autem dignissimos est explicabo illo in ipsa labore natus nesciunt obcaecati quisquam tenetur, vero. A adipisci consequatur laborum nam voluptate. Culpa deserunt dignissimos voluptas.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consectetur dolorem doloribus dolorum ea, fugit laborum mollitia natus quam quis quos sapiente similique voluptate. Aperiam assumenda autem dignissimos est explicabo illo in ipsa labore natus nesciunt obcaecati quisquam tenetur, vero. A adipisci consequatur laborum nam voluptate. Culpa deserunt dignissimos voluptas.</p>
+    <div>
+      <quill-view-html [content]="post.text"></quill-view-html>
+    </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <p class="text-center">Идет загрузка...</p>
+</ng-template>
